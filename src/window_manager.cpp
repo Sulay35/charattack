@@ -1,11 +1,11 @@
 /**
- * Se charge de l'affichage graphique de l'environnement
+ * Se charge de l'affichage graphique sur la fenêtre avec SDL
  * Basé sur SDL2
  */
 
-#include "graphic_viewer.hpp"
+#include "window_manager.hpp"
 
-bool init(SDL_Window* & gW, SDL_Renderer* & gR, SDL_Surface* & gSS)
+bool WindowManager::init(SDL_Window* & gW, SDL_Renderer* & gR, SDL_Surface* & gSS)
 {
 	//Initialization flag
 	bool success = true;
@@ -19,7 +19,7 @@ bool init(SDL_Window* & gW, SDL_Renderer* & gR, SDL_Surface* & gSS)
 	else
 	{
 		//Create window
-		gW = SDL_CreateWindow( "Pong", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		gW = SDL_CreateWindow( "CharGPT", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gW == NULL )
 		{
 			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -49,7 +49,7 @@ bool init(SDL_Window* & gW, SDL_Renderer* & gR, SDL_Surface* & gSS)
 }
 
 
-void close(SDL_Window* & gW, SDL_Renderer* & gR, TTF_Font* & font)
+void WindowManager::close(SDL_Window* & gW, SDL_Renderer* & gR, TTF_Font* & font)
 {
 	SDL_DestroyRenderer(gR);
 	SDL_DestroyWindow( gW );
@@ -65,7 +65,7 @@ void close(SDL_Window* & gW, SDL_Renderer* & gR, TTF_Font* & font)
 	SDL_Quit();
 }
 
-SDL_Texture* loadTexture(SDL_Renderer* sR, std::string path )
+SDL_Texture* WindowManager::loadTexture(SDL_Renderer* sR, std::string path )
 {
 	//The final optimized image
 	SDL_Texture* newTexture = NULL;
@@ -90,42 +90,4 @@ SDL_Texture* loadTexture(SDL_Renderer* sR, std::string path )
 	}
 
 	return newTexture;
-}
-
-void main(){
-    SDL_Window* gWindow = NULL;
-    SDL_Renderer* gRenderer = NULL;
-    SDL_Surface* gScreenSurface = NULL;
-    TTF_Font* gFont = NULL;
-
-    if(!init(gWindow, gRenderer, gScreenSurface)){
-        printf("Failed to initialize!\n");
-    }else{
-        bool quit = false;
-        SDL_Event e;
-
-        SDL_Texture* gTexture = loadTexture(gRenderer, "res/pong.png");
-        if(gTexture == NULL){
-            printf("Failed to load texture!\n");
-        }else{
-            SDL_Rect dest;
-            dest.x = 0;
-            dest.y = 0;
-            dest.w = 1280;
-            dest.h = 720;
-
-            SDL_RenderCopy(gRenderer, gTexture, NULL, &dest);
-            SDL_RenderPresent(gRenderer);
-        }
-
-        while(!quit){
-            while(SDL_PollEvent(&e) != 0){
-                if(e.type == SDL_QUIT){
-                    quit = true;
-                }
-            }
-        }
-    }
-
-    close(gWindow, gRenderer, gFont);
 }

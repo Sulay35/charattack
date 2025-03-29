@@ -1,4 +1,4 @@
-# TANK IA
+# Char GPT : AI playing Tank game
 IA qui jour au jeu tank [Tank](https://en.wikipedia.org/wiki/Tank_(video_game))
 
 Modèle d'IA : Q Learning apprentissage par renforcement 
@@ -35,7 +35,12 @@ Actions négatives -:
     a. Créer un controlleur joueur qui modifie un environnement
     b. Créer un viewer graphique pour représenter le jeu
 
-
+# Environment : 
+- size : w and h 
+- Takes an map object specifying every thing about the game or -1 to random
+    - the map contains : 
+        - walls : list of all walls 
+        - player positions : list of player position
 
 ### Idées bonus 
 - différents terrains : boue, eau, arbres... qui ralentissent

@@ -13,7 +13,7 @@ COMPILER_FLAGS = -w -Wall
 LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
 
 # name of the executable
-OBJ_NAME = chargpt
+OBJ_NAME = charattack
 
 # add @ add the begining to not show the commang 
 all : $(OBJS)

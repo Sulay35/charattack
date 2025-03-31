@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
@@ -41,7 +43,7 @@ class WindowManager{
          * 
          * @param gR a pointer to the Renderer 
          * @param path the path to the texture file
-         * 
+         * @return SDL_Texture* pointer to the texture loaded 
         */
         SDL_Texture* loadTexture(SDL_Renderer* sR, std::string path);
 };

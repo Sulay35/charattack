@@ -19,7 +19,7 @@ bool WindowManager::init(SDL_Window* & gW, SDL_Renderer* & gR, SDL_Surface* & gS
 	else
 	{
 		//Create window
-		gW = SDL_CreateWindow( "CharGPT", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		gW = SDL_CreateWindow( "CharAttack", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gW == NULL )
 		{
 			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -27,6 +27,7 @@ bool WindowManager::init(SDL_Window* & gW, SDL_Renderer* & gR, SDL_Surface* & gS
 		}
 		else
 		{
+			// Create global renderer
 			gR = SDL_CreateRenderer(gW, -1,SDL_RENDERER_ACCELERATED);
 			if(gR == NULL){
 				printf( "Renderer could not be initialized! SDL Error: %s\n", SDL_GetError());
@@ -38,8 +39,15 @@ bool WindowManager::init(SDL_Window* & gW, SDL_Renderer* & gR, SDL_Surface* & gS
 					printf( "TTF could not be initialized! TTF Error: %s\n", TTF_GetError());
 					success = false;
 				}else{
-					printf("Everything initialized!\n");
-					gSS = SDL_GetWindowSurface(gW);
+					// init SDL Image
+					int imgFlags = IMG_INIT_PNG;
+					if(!IMG_Init(imgFlags) & imgFlags){
+						printf( "TTF could not be initialized! TTF Error: %s\n", TTF_GetError());
+						success = false;
+					}else{
+						printf("Everything initialized!\n");
+						gSS = SDL_GetWindowSurface(gW);
+					}
 				}
 			}
 		}
@@ -65,6 +73,7 @@ void WindowManager::close(SDL_Window* & gW, SDL_Renderer* & gR, TTF_Font* & font
 	SDL_Quit();
 }
 
+// Load a texture from a path and 
 SDL_Texture* WindowManager::loadTexture(SDL_Renderer* sR, std::string path )
 {
 	//The final optimized image
@@ -72,6 +81,7 @@ SDL_Texture* WindowManager::loadTexture(SDL_Renderer* sR, std::string path )
 
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
+
 	if( loadedSurface == NULL )
 	{
 		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );

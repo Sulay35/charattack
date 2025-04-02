@@ -9,10 +9,10 @@ class Bullet: public GameObject
 public:
     Bullet() = default;
     ~Bullet() {}
-    Bullet(int x, int y);
-    Bullet(SDL_Texture* texture, int x, int y);
+    Bullet(SDL_Texture* texture, int x, int y, Vector2 velocity);
     Bullet(const Bullet &) = default;
-    virtual void handleEvent(SDL_Event &e, double dt) ;
+
+    virtual void handleEvent(SDL_Event &e, double dt);
     virtual void update(double dt);
     virtual void render(SDL_Renderer *gRenderer) const;
 
@@ -22,7 +22,7 @@ public:
 private:
     Vector2 pos;
     Vector2 vel;
-    int speed = 5;
-    int angle;
+    int speed = 1;
+    int angle = 0;
     int w = 20, h = 20;
 };

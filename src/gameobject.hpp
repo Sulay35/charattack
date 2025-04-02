@@ -1,4 +1,5 @@
 // Abstract Class representing any object interacting or being drawn 
+#pragma once
 #include <SDL2/SDL.h>
 
 class GameObject{
@@ -32,6 +33,7 @@ class GameObject{
         inline SDL_Texture* getTexture() const {
             return texture;
         }
+    
     private: 
         SDL_Texture* texture = NULL;
 };

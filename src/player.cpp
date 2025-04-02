@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 
 Player::Player(int x, int y) : GameObject(), pos(Vector2(x, y)) {}
-Player::Player(SDL_Texture *texture, int x, int y) : GameObject(texture), pos(Vector2(x, y)) {}
+Player::Player(GameManager* gameManager, SDL_Texture *texture, int x, int y, SDL_Texture* bulletTexture) :GameObject(texture), pos(Vector2(x, y)), bulletTexture(bulletTexture), gameManager(gameManager)  {}
 
 void Player::handleEvent(SDL_Event &e, double dt)
 {
@@ -22,6 +22,9 @@ void Player::handleEvent(SDL_Event &e, double dt)
             break;
         case SDLK_RIGHT:
             move(dt, TURN_R);
+            break;
+        case SDLK_SPACE:
+            shoot();
             break;
         }
     }
@@ -52,7 +55,6 @@ void Player::move(double dt, action a)
         vel.rotate(rotationSpeed * M_PI / 180);
         break;
     }
-    std::cout << "pos : " << pos << std::endl;
 }
 
 void Player::render(SDL_Renderer *gRenderer) const
@@ -67,6 +69,7 @@ void Player::render(SDL_Renderer *gRenderer) const
 // shoot a bullet
 // instantiate a bullet : 
 // init velocity = this-> velocity
-void shoot(double dt){
-
+void Player::shoot() {
+    auto b = std::make_unique<Bullet>(bulletTexture, pos.x, pos.y, vel);
+    gameManager->addGameObject(std::move(b));
 }

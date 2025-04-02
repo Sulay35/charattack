@@ -47,3 +47,6 @@ Actions négatives -:
 - mines 
 - shield
 - dash multidirectionnel pour éviter les balles 
+
+
+Controller(env, agent) : appelle la fonction move 

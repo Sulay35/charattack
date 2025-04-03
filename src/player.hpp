@@ -40,12 +40,12 @@ private:
 
     Vector2 pos;
     Vector2 vel = Vector2(0, 1);
-    int speed = 5;
+    int speed = 10;
 
     int angle = 0;
-    int rotationSpeed = 5;
+    int rotationSpeed = 8;
 
-    int w = 20, h = 20;
+    int w = 40, h = 40;
 
     SDL_Texture* bulletTexture;
 };

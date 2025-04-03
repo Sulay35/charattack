@@ -77,6 +77,12 @@ double Vector2::norm() const
     return sqrt(x * x + y * y);
 }
 
+double Vector2::angle() const
+{
+    // TODO : attention /0 !!!
+    return asin(y/x)+ M_PI_2;
+}
+
 void Vector2::add(Vector2 *v2)
 {
     x += v2->x;

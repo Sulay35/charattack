@@ -30,6 +30,7 @@ public:
     // Rotate the vector using rad angles
     void rotate(double angle);
     double norm() const;
+    double angle() const;
     void add(Vector2 *v2);
 
     friend std::ostream &operator<<(std::ostream &os, Vector2 &v);

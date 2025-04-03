@@ -59,10 +59,10 @@ void Player::move(double dt, action a)
 
 void Player::render(SDL_Renderer *gRenderer) const
 {
-    SDL_Rect body = {this->pos.x, this->pos.y, w, h};
+    SDL_FRect body = {this->pos.x, this->pos.y, w, h};
     SDL_Surface *surface = SDL_CreateRGBSurface(0, 100, 50, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
     SDL_FillRect(surface, nullptr, SDL_MapRGB(surface->format, 255, 0, 0)); // Fill with red
-    SDL_RenderCopyEx(gRenderer, getTexture(), nullptr, &body, angle, nullptr, SDL_FLIP_NONE) != 0;
+    SDL_RenderCopyExF(gRenderer, getTexture(), nullptr, &body, angle, nullptr, SDL_FLIP_NONE) != 0;
     SDL_FreeSurface(surface); // No longer needed
 }
 

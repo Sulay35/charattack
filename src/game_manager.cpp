@@ -11,6 +11,18 @@ void GameManager::addGameObject(std::unique_ptr<GameObject> gameObject){
     gameObjects.push_back(std::move(gameObject));
 }
 
+void GameManager::removeGameObject(std::unique_ptr<GameObject> gameObject) {
+    std::vector<std::unique_ptr<GameObject>>::iterator foundGameObject = std::find(
+        gameObjects.begin(),
+        gameObjects.end(),
+        gameObject
+    );
+    // dunno if its necessary since its uniqueptr
+    //(*foundGameObject).release();
+    gameObjects.erase(foundGameObject);
+}
+
+
 void GameManager::handleEvent(SDL_Event &e, double dt){
     // std::vector<std::unique_ptr<GameObject>>::iterator it;
     // std::cout << "AVANT size: " << gameObjects.size() << std::endl;
@@ -39,5 +51,19 @@ void GameManager::render(SDL_Renderer *gRenderer) const {
     std::vector<std::unique_ptr<GameObject>>::const_iterator it;
     for(it = gameObjects.begin(); it != gameObjects.end(); it++){
         (*it)->render(gRenderer);
+    }
+}
+
+void GameManager::loadStage(std::string s, int mod){
+    // TODO : check length
+    for(size_t i = 0; i < SCREEN_WIDTH; i+=40){
+        for(size_t j = 0; j < SCREEN_HEIGHT; j+=40){
+            if(random()%5 == 0){
+                Vector2 objectPos(i,j);
+                std::cout << "at : " << objectPos << std::endl;
+                auto wall = std::make_unique<Wall>(objectPos);
+                addGameObject(std::move(wall));
+            }
+        }
     }
 }

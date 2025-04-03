@@ -50,3 +50,17 @@ Actions négatives -:
 
 
 Controller(env, agent) : appelle la fonction move 
+
+TODO : 
+- Controller 
+- Create the env from a string 
+- Texture manager : loads and hold a dictionary of textures
+- Get state in gameManager
+    - Agentpos 
+    - agent angle %15
+    - Agent detectors (3) states
+    - Agent detectors (3) distances to walls
+    - Agent distance to ennemy 
+    - Angle to enemy 
+- Get reward 
+- Render at subpixel precision : Frect et RenderCopyExF

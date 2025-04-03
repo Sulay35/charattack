@@ -11,6 +11,7 @@
 
 using namespace std;
 
+// TODO : REMOVE this shit
 WindowManager windowManager;
 GameManager gameManager;
 
@@ -34,6 +35,8 @@ int main()
 
         SDL_Texture *charTexture = windowManager.loadTexture(gRenderer, "ressources/char.png");
         SDL_Texture *bulletTexture = windowManager.loadTexture(gRenderer, "ressources/bullet.png");
+
+        gameManager.loadStage("", 10);
 
         auto p1 = std::make_unique<Player>(&gameManager, charTexture, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, bulletTexture);
         gameManager.addGameObject(std::move(p1));

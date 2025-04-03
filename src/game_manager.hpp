@@ -1,12 +1,16 @@
 #pragma once
 
-#include "gameobject.hpp"
-#include "vector2.hpp"
-#include "window_manager.hpp"
 #include <stdio.h>
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <string>
+#include <algorithm>    
+
+#include "gameobject.hpp"
+#include "vector2.hpp"
+#include "wall.hpp"
+#include "window_manager.hpp"
 
 // Holds and manages all gameObjects : 
 // - calls function for each stored object
@@ -23,9 +27,12 @@ public:
     virtual void render(SDL_Renderer *gRenderer) const;
 
     void addGameObject(std::unique_ptr<GameObject> gameObject);
-    void removeGameObject(std::unique_ptr<GameObject> gameObject) {
-        std::cerr << "removeGameObject isn't implemented" << std::endl;
-    }
+    void removeGameObject(std::unique_ptr<GameObject> gameObject);
+    
+    /// @brief Loads the stage gameObjects from a string or a file
+    /// @details The string must be of SCREEN_WIDTH/mod x * SCREEN_HEIGHT/mod size
+    /// @return 0 if failed to load the stage
+    void loadStage(std::string s, int mod);
 
 private:
     std::vector<std::unique_ptr<GameObject>> gameObjects;

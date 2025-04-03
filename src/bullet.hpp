@@ -22,7 +22,7 @@ public:
 private:
     Vector2 pos;
     Vector2 vel;
-    int speed = 1;
+    double speed = 0.5f;
     int angle = 0;
     int w = 20, h = 20;
 };

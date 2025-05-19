@@ -8,6 +8,7 @@
 #include <iostream>
 #include "vector2.hpp"
 #include "player.hpp"
+#include "q_learning_bot.hpp"
 
 using namespace std;
 
@@ -36,16 +37,41 @@ int main()
         SDL_Texture *charTexture = windowManager.loadTexture(gRenderer, "ressources/char.png");
         SDL_Texture *bulletTexture = windowManager.loadTexture(gRenderer, "ressources/bullet.png");
 
-        gameManager.loadStage("", 10);
+        // TODO : put this in a class 
+        // T = Tank 
+        // A = Agent 
+        // X = Mine
+        gameManager.loadStage(
+            "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
+            "W T                            W"
+            "W    W     W  WW     WW        W"
+            "W W  W               W         W"
+            "W                    W   WWWWWWW"
+            "W    W   W       W   W     W   W"
+            "W        W   W   W   WW        W"
+            "W            W   W       W W   W"
+            "W     W   W             WW     W"
+            "W                          W   W"
+            "W W      W            WWWWWW   W"
+            "W                              W"
+            "W   W       WW           W     W"
+            "W   W                    W     W"
+            "W   WW    WW    WWWW           W"
+            "W       W         B    W       W"
+            "W       W              W       W"
+            "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
+            );
 
-        auto p1 = std::make_unique<Player>(&gameManager, charTexture, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, bulletTexture);
-        gameManager.addGameObject(std::move(p1));
-
+        // Need to use a controller class to distinguish between the two players controls (and the bot)
         //Player *p2 = new Player(&gameManager, charTexture, SCREEN_WIDTH , SCREEN_HEIGHT / 2, bulletTexture);
         //gameManager.addGameObject(p2);
 
-        auto b = std::make_unique<Bullet>(bulletTexture, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, Vector2(0,1));
-        gameManager.addGameObject(std::move(b));
+        // Create the player
+        auto p1 = std::make_unique<Player>(&gameManager, charTexture, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, bulletTexture);
+        gameManager.addGameObject(std::move(p1));
+        // Create the bot
+        auto p2 = std::make_unique<QLearningBot>(&gameManager, charTexture, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, bulletTexture);
+        gameManager.addGameObject(std::move(p2));
 
         // MAIN LOOP
         while (!quit)

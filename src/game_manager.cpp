@@ -54,16 +54,18 @@ void GameManager::render(SDL_Renderer *gRenderer) const {
     }
 }
 
-void GameManager::loadStage(std::string s, int mod){
+void GameManager::loadStage(std::string s){
     // TODO : check length
+    std::string::iterator sit = s.begin();
+    for(size_t j = 0; j < SCREEN_HEIGHT && sit != s.end(); j+=40){
     for(size_t i = 0; i < SCREEN_WIDTH; i+=40){
-        for(size_t j = 0; j < SCREEN_HEIGHT; j+=40){
-            if(random()%5 == 0){
+            if((*sit) == 'W'){ // WALL
                 Vector2 objectPos(i,j);
-                std::cout << "at : " << objectPos << std::endl;
+                //std::cout << "at : " << objectPos << std::endl;
                 auto wall = std::make_unique<Wall>(objectPos);
                 addGameObject(std::move(wall));
             }
+            sit++;
         }
     }
 }

@@ -32,7 +32,7 @@ public:
     /// @brief Loads the stage gameObjects from a string or a file
     /// @details The string must be of SCREEN_WIDTH/mod x * SCREEN_HEIGHT/mod size
     /// @return 0 if failed to load the stage
-    void loadStage(std::string s, int mod);
+    void loadStage(std::string s);
 
 private:
     std::vector<std::unique_ptr<GameObject>> gameObjects;

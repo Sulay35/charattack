@@ -9,7 +9,7 @@
 
 #include "gameobject.hpp"
 #include "vector2.hpp"
-#include "wall.hpp"
+#include "../assets/wall.hpp"
 #include "window_manager.hpp"
 
 // Holds and manages all gameObjects : 
@@ -36,4 +36,6 @@ public:
 
 private:
     std::vector<std::unique_ptr<GameObject>> gameObjects;
+    std::vector<std::unique_ptr<GameObject>> toAddGameObjects;
+    std::vector<size_t> toRemove;
 };

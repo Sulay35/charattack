@@ -2,25 +2,20 @@
 #include <SDL2/SDL.h>
 
 Tank::Tank(int x, int y) : GameObject(), pos(Vector2(x, y)) {}
-Tank::Tank(GameManager* gameManager, SDL_Texture *texture, int x, int y, SDL_Texture* bulletTexture) :GameObject(texture), pos(Vector2(x, y)), bulletTexture(bulletTexture), gameManager(gameManager)  {}
+Tank::Tank(GameManager* gameManager, SDL_Texture *texture, int x, int y, SDL_Texture* bulletTexture) :GameObject(texture), pos(Vector2(x, y)), bulletTexture(bulletTexture), gameManager(gameManager)  {
+    boxCollider = new BoxCollider(w, h, "tank");
+}
 
 void Tank::handleEvent(SDL_Event &e, double dt)
-{
-    // TODO : check if the tank is in the wall
-    // TODO : check if the tank is out of the screen
-    // TODO : check if the tank is out of the map
-    // TODO : check if the tank is in a mine
-}
+{ }
 
 /// @brief Update the tank
 /// @details Update the tank position and check for collisions
 /// @param dt Delta time
 void Tank::update(double dt)
 {
-    // TODO : check if the tank is in the wall
-    // TODO : check if the tank is out of the screen
-    // TODO : check if the tank is out of the map
-    // TODO : check if the tank is in a mine
+    printf("BoxCollider pos: %f %f\n", boxCollider->getPos().x, boxCollider->getPos().y);
+    boxCollider->updatePos(pos);
 }
 
 /// @brief Render the tank

@@ -1,6 +1,6 @@
-#include "gameobject.hpp"
-#include "vector2.hpp"
-#include "window_manager.hpp"
+#include "../utils/gameobject.hpp"
+#include "../utils/vector2.hpp"
+#include "../utils/window_manager.hpp"
 #include <stdio.h>
 #include <iostream>
 

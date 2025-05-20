@@ -1,7 +1,11 @@
 #include "wall.hpp"
 
-Wall::Wall(Vector2 pos) : GameObject(), pos(pos) {}
-Wall::Wall(SDL_Texture* texture, Vector2 pos) : GameObject(texture), pos(pos) {}
+Wall::Wall(Vector2 pos) : GameObject(), pos(pos) {
+    boxCollider = new BoxCollider(w, h, "wall");
+}
+Wall::Wall(SDL_Texture* texture, Vector2 pos) : GameObject(texture), pos(pos) {
+    boxCollider = new BoxCollider(w, h, "wall");
+}
 
 void Wall::render(SDL_Renderer *gRenderer) const {
     SDL_Rect body = {this->pos.x, this->pos.y, w, h};

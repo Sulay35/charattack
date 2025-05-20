@@ -1,7 +1,7 @@
 # files we're compiling
 # OBJS = img_screen.cpp
 # OBJS = $(SRFFILE)
-OBJS = src/*.cpp
+OBJS = src/*/*.cpp src/*.cpp 
 
 # compiler
 CC = g++

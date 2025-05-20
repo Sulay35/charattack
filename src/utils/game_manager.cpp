@@ -1,25 +1,31 @@
 #include "game_manager.hpp"
 
+// TODO : 
+// - add a function to load the stage from a file
+// - add texture loader class 
+// - use pooling for bullets
+
 GameManager::~GameManager(){
     std::vector<std::unique_ptr<GameObject>>::iterator it;
     for(it = gameObjects.begin(); it != gameObjects.end(); it++){
         (*it).release();
     }
+    gameObjects.clear();
 }
 
 void GameManager::addGameObject(std::unique_ptr<GameObject> gameObject){
-    gameObjects.push_back(std::move(gameObject));
+    toAddGameObjects.push_back(std::move(gameObject));
 }
 
 void GameManager::removeGameObject(std::unique_ptr<GameObject> gameObject) {
+    
+
     std::vector<std::unique_ptr<GameObject>>::iterator foundGameObject = std::find(
         gameObjects.begin(),
         gameObjects.end(),
         gameObject
     );
-    // dunno if its necessary since its uniqueptr
-    //(*foundGameObject).release();
-    gameObjects.erase(foundGameObject);
+    toRemove.push_back(std::distance(gameObjects.begin(), foundGameObject));
 }
 
 
@@ -33,18 +39,41 @@ void GameManager::handleEvent(SDL_Event &e, double dt){
     //     std::cout << "APRES size: " << gameObjects.size() << std::endl;
     //     (*it)->handleEvent(e, dt);
     // }
-    std::vector<std::unique_ptr<GameObject>>::iterator it;
-    size_t size = gameObjects.size();
-    for(size_t i = 0; i < size; i++){
-        gameObjects[i]->handleEvent(e,dt);
+    for(auto &obj : gameObjects){
+        obj->handleEvent(e,dt);
     }
 }
 
 void GameManager::update(double dt) {
-    std::vector<std::unique_ptr<GameObject>>::iterator it;
-    for(it = gameObjects.begin(); it != gameObjects.end(); it++){
-        (*it)->update(dt);
+    printf("Number of gameObjects: %zu\n", gameObjects.size());
+
+    for(auto it = toAddGameObjects.begin(); it != toAddGameObjects.end(); it++){
+        gameObjects.push_back(std::move(*it));
+    }   
+    toAddGameObjects.clear();
+
+    // Remove gameObjects
+    for(auto it = toRemove.begin(); it != toRemove.end(); it++){
+        gameObjects.erase(gameObjects.begin() + *it);
     }
+    toRemove.clear();
+
+    std::vector<std::unique_ptr<GameObject>>::iterator it;
+    for(auto &obj : gameObjects){
+        obj->update(dt);
+    }
+
+    // Collision detection
+    // for(it = gameObjects.begin(); it != gameObjects.end(); it++){
+    //     for(auto it2 = gameObjects.begin(); it2 != gameObjects.end(); it2++){
+    //         if(it != it2){
+    //             if((*it)->getBoxCollider()->collide((*it2)->getBoxCollider())){
+    //                 std::cout << "Collision between " << (*it)->getBoxCollider()->getTag() << " and " << (*it2)->getBoxCollider()->getTag() << std::endl;
+    //                 (*it)->handleEvent(e, dt);
+    //             }
+    //         }
+    //     }
+    // }
 }
 
 void GameManager::render(SDL_Renderer *gRenderer) const {

@@ -1,7 +1,8 @@
 #pragma once
 
-#include "gameobject.hpp"
-#include "vector2.hpp"
+#include "../utils/gameobject.hpp"
+#include "../utils/vector2.hpp"
+#include "../utils/boxCollider.hpp"
 
 class Wall : public GameObject{
 public:
@@ -15,7 +16,8 @@ public:
     virtual void update(double dt) {}
     virtual void render(SDL_Renderer *gRenderer) const;
 
-    private:
-        Vector2 pos;
-        int w = 40, h = 40;
+private:
+    BoxCollider *boxCollider;
+    Vector2 pos;
+    int w = 40, h = 40;
 };

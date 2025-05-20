@@ -1,12 +1,13 @@
 #pragma once
 
-#include "gameobject.hpp"
-#include "vector2.hpp"
-#include "window_manager.hpp"
+#include "../utils/gameobject.hpp"
+#include "../utils/vector2.hpp"
+#include "../utils/window_manager.hpp"
 #include <stdio.h>
 #include <iostream>
 #include "bullet.hpp"
-#include "game_manager.hpp"
+#include "../utils/game_manager.hpp"
+#include "../utils/boxCollider.hpp"
 
 enum action
 {
@@ -37,6 +38,8 @@ protected:
     // Shoot a bullet
     void shoot();
     GameManager* gameManager;   
+
+    BoxCollider *boxCollider;
 
     Vector2 pos;
     Vector2 vel = Vector2(0, 1);

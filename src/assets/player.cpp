@@ -6,10 +6,7 @@ Player::Player(GameManager* gameManager, SDL_Texture* texture, int x, int y, SDL
 
 void Player::update(double dt)
 {
-    // TODO : check if the tank is in the wall
-    // TODO : check if the tank is out of the screen
-    // TODO : check if the tank is out of the map
-    // TODO : check if the tank is in a mine
+    Tank::update(dt);
 }
 
 void Player::handleEvent(SDL_Event &e, double dt)

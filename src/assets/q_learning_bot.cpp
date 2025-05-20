@@ -10,6 +10,8 @@ void QLearningBot::handleEvent(SDL_Event& e, double dt) {
 }
 
 void QLearningBot::update(double dt) {
+    Tank::update(dt);
+
     // Get the current state
     std::string state = getState();
 

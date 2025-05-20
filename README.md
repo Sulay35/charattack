@@ -64,3 +64,6 @@ TODO :
     - Angle to enemy 
 - Get reward 
 - Render at subpixel precision : Frect et RenderCopyExF
+
+## Bugs rencontrés
+Le vecteur de GameObject se redimensionne en même temps qu'il est parcouru. Or durant le redimensionnement les pointeurs sont déplacés (move) donc ils deviennent invalides. -> fix : utiliser des listes d'ajout/suppressions des objets pour les faires avant l'accès aux pointeurs

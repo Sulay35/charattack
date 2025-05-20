@@ -1,14 +1,14 @@
 #include <stdio.h>
-#include "window_manager.hpp"
+#include "utils/window_manager.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <string>
 #include <chrono>
 #include <iostream>
-#include "vector2.hpp"
-#include "player.hpp"
-#include "q_learning_bot.hpp"
+#include "utils/vector2.hpp"
+#include "assets/player.hpp"
+#include "assets/q_learning_bot.hpp"
 
 using namespace std;
 
@@ -39,7 +39,7 @@ int main()
 
         // TODO : put this in a class 
         // T = Tank 
-        // A = Agent 
+        // B = Bot 
         // X = Mine
         gameManager.loadStage(
             "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
